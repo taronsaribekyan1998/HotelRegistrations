@@ -7,12 +7,22 @@
 
 import UIKit
 
+protocol AddRegistrationTableViewControllerDelegate: AnyObject {
+    func didTapDoneButton(with registration: Registration)
+}
+
 class AddRegistrationTableViewController: UITableViewController {
-    private var selectedRoomtype: RoomType?
+    weak var delegate: AddRegistrationTableViewControllerDelegate?
+    private var selectedRoomtype: RoomType? { didSet {
+        validate()
+    }
+    }
+    private var existingRegistration: Registration?
     private var registration: Registration? {
         guard let selectedRoomtype = selectedRoomtype else { return nil }
         
         return Registration(
+            id: existingRegistration?.id ?? UUID().uuidString,
             firstName: firstNameTextField.text ?? "",
             lastName: lastNameTextField.text ?? "",
             emailAddress: emailTextField.text ?? "",
@@ -33,6 +43,8 @@ class AddRegistrationTableViewController: UITableViewController {
     private var checkOutDatePickerIndexPath = IndexPath(row: 3, section: 1)
     
     // MARK: Subviews
+    
+    @IBOutlet var doneBarButton: UIBarButtonItem!
     
     @IBOutlet private var firstNameTextField: UITextField!
     @IBOutlet private var lastNameTextField: UITextField!
@@ -56,23 +68,54 @@ class AddRegistrationTableViewController: UITableViewController {
     
     @IBOutlet private var roomTypeLabel: UILabel!
     
+    init?(coder: NSCoder, registration: Registration?, delegate: AddRegistrationTableViewControllerDelegate?) {
+        if let registration = registration {
+            existingRegistration = registration
+        }
+        self.delegate = delegate
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        populate()
         updateDates()
+        updateNumberOfGuests()
         updateRoomType()
+        validate()
     }
     
     // MARK: Actions
     
-    @IBAction private func doneBarButtonTapped(_ sender: UIBarButtonItem) {
+    @IBAction func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
+    
+    
+    @IBAction private func doneBarButtonTapped(_ sender: UIBarButtonItem) {
+        if let registration = registration {
+            delegate?.didTapDoneButton(with: registration)
+            dismiss(animated: true)
+        }
+    }
+    
+    @IBAction func textFieldEditingChanged() {
+        validate()
+    }
+    
+
     
     @IBAction private func datePickerValueChanged() {
         updateDates()
     }
     
     @IBAction private func stepperValueChanged() {
+        validate()
         updateNumberOfGuests()
     }
     
@@ -103,7 +146,6 @@ class AddRegistrationTableViewController: UITableViewController {
         } else {
             return
         }
-        
         tableView.reloadData()
     }
     
@@ -114,6 +156,21 @@ class AddRegistrationTableViewController: UITableViewController {
         dateFormatter.dateStyle = .medium
         return dateFormatter
     }()
+    
+    private func populate() {
+        if let existingRegistration = existingRegistration {
+            firstNameTextField.text = existingRegistration.firstName
+            lastNameTextField.text = existingRegistration.lastName
+            emailTextField.text = existingRegistration.emailAddress
+            checkInDatePicker.date = existingRegistration.checkInDate
+            checkOutDatePicker.date = existingRegistration.checkOutDate
+            numberOfAdultsStepper.value = Double(existingRegistration.numberOfAdults)
+            numberOfChildrenStepper.value = Double(existingRegistration.numberOfChildren)
+            wifiSwitch.isOn = existingRegistration.wifi
+            selectedRoomtype = existingRegistration.roomType
+        }
+    }
+
     
     private func updateDates() {
         checkOutDatePicker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: checkInDatePicker.date)
@@ -132,6 +189,14 @@ class AddRegistrationTableViewController: UITableViewController {
         } else {
             roomTypeLabel.text = "Not Set"
         }
+    }
+    
+    private func validate() {
+        let isValid = !(firstNameTextField.text?.isEmpty ?? true) &&
+        !(lastNameTextField.text?.isEmpty ?? true) &&
+        numberOfAdultsStepper.value >= 1 &&
+        selectedRoomtype != nil
+        doneBarButton.isEnabled = isValid
     }
     
     // MARK: Segues

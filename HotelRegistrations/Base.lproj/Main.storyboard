@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8nR-q0-aJA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5iC-Ak-YmH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -12,7 +12,7 @@
             <objects>
                 <tableViewController id="Jma-ic-BMx" customClass="AddRegistrationTableViewController" customModule="HotelRegistrations" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="BYk-9y-Rpl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1411"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1357"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
@@ -25,10 +25,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SMM-VW-Yox">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SMM-VW-Yox">
                                                     <rect key="frame" x="20" y="11" width="374" height="34.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="XdE-7a-f29"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -46,10 +49,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ipE-xi-7si">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ipE-xi-7si">
                                                     <rect key="frame" x="20" y="11" width="374" height="34.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="weA-eh-GNf"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -71,6 +77,9 @@
                                                     <rect key="frame" x="20" y="11" width="374" height="34.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="ye5-IF-2hB"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -357,7 +366,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Guest Registration" id="WzW-ye-nW7">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Zy7-lf-yFg">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wtL-U1-4y8">
+                            <connections>
+                                <action selector="cancelBarButtonTapped:" destination="Jma-ic-BMx" id="0Ld-Nd-xCT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="Zy7-lf-yFg">
                             <connections>
                                 <action selector="doneBarButtonTapped:" destination="Jma-ic-BMx" id="sQY-py-X0P"/>
                             </connections>
@@ -369,6 +383,7 @@
                         <outlet property="checkInDatePicker" destination="dF6-Y1-K06" id="kNV-bn-sjV"/>
                         <outlet property="checkOutDateLabel" destination="riQ-bE-Pan" id="1G9-Xu-yBU"/>
                         <outlet property="checkOutDatePicker" destination="ele-tb-smG" id="Gk3-VC-Cl5"/>
+                        <outlet property="doneBarButton" destination="Zy7-lf-yFg" id="rr3-gh-L0u"/>
                         <outlet property="emailTextField" destination="88l-yO-QTM" id="imf-t5-xCG"/>
                         <outlet property="firstNameTextField" destination="SMM-VW-Yox" id="qVP-i1-B2j"/>
                         <outlet property="lastNameTextField" destination="ipE-xi-7si" id="V8r-lg-Bo0"/>
@@ -382,14 +397,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2RN-GR-7uX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-184" y="26"/>
+            <point key="canvasLocation" x="726.08695652173924" y="25.78125"/>
         </scene>
         <!--Select Room Type Table View Controller-->
         <scene sceneID="UQa-Vd-b1v">
             <objects>
                 <tableViewController id="qjw-ix-8jO" customClass="SelectRoomTypeTableViewController" customModule="HotelRegistrations" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="9cR-d4-oVq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -427,25 +442,100 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OYG-AJ-GR0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="25"/>
+            <point key="canvasLocation" x="1505.7971014492755" y="24.776785714285712"/>
+        </scene>
+        <!--Registrations-->
+        <scene sceneID="GHr-vQ-5iT">
+            <objects>
+                <tableViewController id="UJp-Sw-yem" customClass="RegistrationsTableViewController" customModule="HotelRegistrations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="865-ej-vsh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RegistrationCell" textLabel="tvj-9p-ez9" detailTextLabel="OT9-NU-4W4" style="IBUITableViewCellStyleSubtitle" id="Yz0-Q8-aFC">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yz0-Q8-aFC" id="g20-Hg-oZP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tvj-9p-ez9">
+                                            <rect key="frame" x="20" y="6" width="25" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OT9-NU-4W4">
+                                            <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="8nR-q0-aJA" kind="presentation" id="cSv-MP-Bvv"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="UJp-Sw-yem" id="BXO-4K-LBb"/>
+                            <outlet property="delegate" destination="UJp-Sw-yem" id="h8z-9b-m2B"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Registrations" id="ujC-id-b8H">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dn0-OS-xqe">
+                            <connections>
+                                <segue destination="8nR-q0-aJA" kind="presentation" id="S7l-LW-5Ej"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GhF-gy-If3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-941" y="25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ggK-zM-42l">
             <objects>
                 <navigationController id="8nR-q0-aJA" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eUa-n7-qln">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Jma-ic-BMx" kind="relationship" relationship="rootViewController" id="SAf-sh-aIs"/>
+                        <segue destination="Jma-ic-BMx" kind="relationship" relationship="rootViewController" destinationCreationSelector="addEditRegistrationTableViewController:" id="SAf-sh-aIs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AOK-tp-r5l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1055" y="26"/>
+            <point key="canvasLocation" x="-133" y="25"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="q3i-0e-tZ1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5iC-Ak-YmH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lih-Xt-wv1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="UJp-Sw-yem" kind="relationship" relationship="rootViewController" id="SfY-n2-L6c"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n6L-0Y-EBI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1807" y="25"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="S7l-LW-5Ej"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

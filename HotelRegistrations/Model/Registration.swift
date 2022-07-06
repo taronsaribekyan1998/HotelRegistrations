@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Registration {
+struct Registration: Equatable {
+    let id: String
     let firstName: String
     let lastName: String
     let emailAddress: String
@@ -17,4 +18,8 @@ struct Registration {
     let numberOfChildren: Int
     let wifi: Bool
     let roomType: RoomType
+    
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
 }
