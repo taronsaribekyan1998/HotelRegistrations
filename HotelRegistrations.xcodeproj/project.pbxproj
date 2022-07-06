@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8008D3F1287444FF008D82A8 /* RegistrationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008D3F0287444FF008D82A8 /* RegistrationsTableViewController.swift */; };
 		80208504286C822100EEFEC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80208503286C822100EEFEC0 /* AppDelegate.swift */; };
 		80208506286C822100EEFEC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80208505286C822100EEFEC0 /* SceneDelegate.swift */; };
 		8020850B286C822100EEFEC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80208509286C822100EEFEC0 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8008D3F0287444FF008D82A8 /* RegistrationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationsTableViewController.swift; sourceTree = "<group>"; };
 		80208500286C822100EEFEC0 /* HotelRegistrations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelRegistrations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80208503286C822100EEFEC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80208505286C822100EEFEC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,8 +88,9 @@
 		80208518286C834100EEFEC0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				80208519286C836100EEFEC0 /* AddRegistrationTableViewController.swift */,
 				80717BE72870AC1D00372502 /* SelectRoomTypeTableViewController.swift */,
+				80208519286C836100EEFEC0 /* AddRegistrationTableViewController.swift */,
+				8008D3F0287444FF008D82A8 /* RegistrationsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				80717BE82870AC1D00372502 /* SelectRoomTypeTableViewController.swift in Sources */,
 				8020851C286C837C00EEFEC0 /* Registration.swift in Sources */,
 				8020851A286C836100EEFEC0 /* AddRegistrationTableViewController.swift in Sources */,
+				8008D3F1287444FF008D82A8 /* RegistrationsTableViewController.swift in Sources */,
 				8020851E286C838600EEFEC0 /* RoomType.swift in Sources */,
 				80208504286C822100EEFEC0 /* AppDelegate.swift in Sources */,
 				80208506286C822100EEFEC0 /* SceneDelegate.swift in Sources */,
