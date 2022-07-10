@@ -30,6 +30,7 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
                                                     <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingDidEndOnExit" id="VLH-7X-sH8"/>
                                                         <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="XdE-7a-f29"/>
                                                     </connections>
                                                 </textField>
@@ -54,6 +55,7 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
                                                     <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingDidEndOnExit" id="Cps-7Q-Jf2"/>
                                                         <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="weA-eh-GNf"/>
                                                     </connections>
                                                 </textField>
@@ -78,6 +80,7 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                     <connections>
+                                                        <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingDidEndOnExit" id="Paz-LV-iJa"/>
                                                         <action selector="textFieldEditingChanged" destination="Jma-ic-BMx" eventType="editingChanged" id="ye5-IF-2hB"/>
                                                     </connections>
                                                 </textField>
@@ -582,9 +585,6 @@
                         <outlet property="totalWiFiPriceLabel" destination="iym-Kb-JvH" id="Dt6-Bt-LMe"/>
                         <outlet property="wifiNeededLabel" destination="K9E-FJ-OZU" id="sWG-Up-0h9"/>
                         <outlet property="wifiSwitch" destination="AnH-pA-1PG" id="M4Q-dJ-2wZ"/>
-                        <outletCollection property="textFields" destination="SMM-VW-Yox" collectionClass="NSMutableArray" id="fgU-C4-TOi"/>
-                        <outletCollection property="textFields" destination="ipE-xi-7si" collectionClass="NSMutableArray" id="Mbw-YY-xzw"/>
-                        <outletCollection property="textFields" destination="88l-yO-QTM" collectionClass="NSMutableArray" id="9Qe-b7-bgc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2RN-GR-7uX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

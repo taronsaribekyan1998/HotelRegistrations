@@ -49,10 +49,7 @@ final class AddRegistrationTableViewController: UITableViewController {
     // MARK: Subviews
     
     @IBOutlet private var doneBarButton: UIBarButtonItem!
-    
-    
-    @IBOutlet var textFields: [UITextField]!
-    
+        
     @IBOutlet private var firstNameTextField: UITextField!
     @IBOutlet private var lastNameTextField: UITextField!
     @IBOutlet private var emailTextField: UITextField!
@@ -101,7 +98,6 @@ final class AddRegistrationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textFields.forEach { $0.delegate = self }
         populate()
         updateDates()
         updateNumberOfGuests()
@@ -248,14 +244,9 @@ final class AddRegistrationTableViewController: UITableViewController {
     }
 }
 
-extension AddRegistrationTableViewController: SelectRoomTypeTableViewControllerDelegate, UITextFieldDelegate {
+extension AddRegistrationTableViewController: SelectRoomTypeTableViewControllerDelegate {
     
     func didSelect(roomType: RoomType) {
         self.selectedRoomtype = roomType
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }
