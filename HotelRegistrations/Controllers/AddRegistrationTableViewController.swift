@@ -8,13 +8,17 @@
 import UIKit
 
 protocol AddRegistrationTableViewControllerDelegate: AnyObject {
+    
     func didTapDoneButton(with registration: Registration)
 }
 
-class AddRegistrationTableViewController: UITableViewController {
+final class AddRegistrationTableViewController: UITableViewController {
+    
     weak var delegate: AddRegistrationTableViewControllerDelegate?
     private var selectedRoomtype: RoomType? { didSet {
+        updateRoomType()
         validate()
+        updateCharges()
     }
     }
     private var existingRegistration: Registration?
@@ -44,7 +48,10 @@ class AddRegistrationTableViewController: UITableViewController {
     
     // MARK: Subviews
     
-    @IBOutlet var doneBarButton: UIBarButtonItem!
+    @IBOutlet private var doneBarButton: UIBarButtonItem!
+    
+    
+    @IBOutlet var textFields: [UITextField]!
     
     @IBOutlet private var firstNameTextField: UITextField!
     @IBOutlet private var lastNameTextField: UITextField!
@@ -52,9 +59,7 @@ class AddRegistrationTableViewController: UITableViewController {
     
     @IBOutlet private var checkInDateLabel: UILabel!
     @IBOutlet private var checkInDatePicker: UIDatePicker! { didSet {
-        let midnight = Calendar.current.startOfDay(for: Date())
-        checkInDatePicker.minimumDate = midnight
-        checkInDatePicker.date = midnight
+        checkInDatePicker.minimumDate = Date()
     }}
     @IBOutlet private var checkOutDateLabel: UILabel!
     @IBOutlet private var checkOutDatePicker: UIDatePicker!
@@ -68,34 +73,48 @@ class AddRegistrationTableViewController: UITableViewController {
     
     @IBOutlet private var roomTypeLabel: UILabel!
     
+    @IBOutlet private var numberOfNightsLabel: UILabel!
+    @IBOutlet private var checkInOutLabel: UILabel!
+    @IBOutlet private var totalRoomPriceLabel: UILabel!
+    @IBOutlet private var roomPricePerNightLabel: UILabel!
+    @IBOutlet private var totalWiFiPriceLabel: UILabel!
+    @IBOutlet private var wifiNeededLabel: UILabel!
+    @IBOutlet private var totalPriceLabel: UILabel!
+    
+    // MARK: Initializer
+    
     init?(coder: NSCoder, registration: Registration?, delegate: AddRegistrationTableViewControllerDelegate?) {
         if let registration = registration {
             existingRegistration = registration
         }
         self.delegate = delegate
+        
         super.init(coder: coder)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        textFields.forEach { $0.delegate = self }
         populate()
         updateDates()
         updateNumberOfGuests()
         updateRoomType()
         validate()
+        updateCharges()
     }
     
     // MARK: Actions
     
-    @IBAction func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
+    @IBAction private func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
     
     @IBAction private func doneBarButtonTapped(_ sender: UIBarButtonItem) {
         if let registration = registration {
@@ -104,14 +123,13 @@ class AddRegistrationTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func textFieldEditingChanged() {
+    @IBAction private func textFieldEditingChanged() {
         validate()
     }
     
-
-    
     @IBAction private func datePickerValueChanged() {
         updateDates()
+        updateCharges()
     }
     
     @IBAction private func stepperValueChanged() {
@@ -120,9 +138,14 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     @IBAction private func  wifiSwitchChanged(_ sender: UISwitch) {
+        updateCharges()
     }
     
     // MARK: - Table view data source and delegate methods
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        updateRoomType()
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
@@ -170,10 +193,9 @@ class AddRegistrationTableViewController: UITableViewController {
             selectedRoomtype = existingRegistration.roomType
         }
     }
-
     
     private func updateDates() {
-        checkOutDatePicker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: checkInDatePicker.date)
+        checkOutDatePicker.minimumDate = Calendar.current.date(byAdding: .hour, value: 25, to: checkInDatePicker.date)
         checkInDateLabel.text = dateFormatter.string(from: checkInDatePicker.date)
         checkOutDateLabel.text = dateFormatter.string(from: checkOutDatePicker.date)
     }
@@ -184,11 +206,7 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     private func updateRoomType() {
-        if let selectedRoomType = selectedRoomtype {
-            roomTypeLabel.text = selectedRoomType.name
-        } else {
-            roomTypeLabel.text = "Not Set"
-        }
+        roomTypeLabel.text = selectedRoomtype?.name ?? "Not Set"
     }
     
     private func validate() {
@@ -199,16 +217,45 @@ class AddRegistrationTableViewController: UITableViewController {
         doneBarButton.isEnabled = isValid
     }
     
+    private func updateCharges() {
+        guard let numberOfDays = Calendar.current.dateComponents([.day], from: checkInDatePicker.date, to: checkOutDatePicker.date).day
+        else { fatalError() }
+        numberOfNightsLabel.text = String(numberOfDays)
+        
+        checkInOutLabel.text = "from " + dateFormatter.string(from: checkInDatePicker.date) + "\n" + "to " + dateFormatter.string(from: checkOutDatePicker.date)
+        
+        let price = (selectedRoomtype?.price ?? 0) * (numberOfDays)
+        totalRoomPriceLabel.text = price == 0 ? "$ 0" : "Total $ \(price)"
+        if let selectedRoom = selectedRoomtype {
+            roomPricePerNightLabel.text = selectedRoom.name + "\n" + "$ \(selectedRoom.price)/night"
+        } else {
+            roomTypeLabel.text = nil
+        }
+        
+        let wifiPrice = wifiSwitch.isOn ? numberOfDays * 10 : 0
+        totalWiFiPriceLabel.text = "$ \(wifiPrice)"
+        wifiNeededLabel.text = wifiSwitch.isOn ? "yes" : "no"
+        
+        totalPriceLabel.text = "$ \(price + wifiPrice)"
+        
+        tableView.reloadData()
+    }
+    
     // MARK: Segues
     
-    @IBSegueAction func selectRoomType(_ coder: NSCoder) -> SelectRoomTypeTableViewController? {
+    @IBSegueAction private func selectRoomType(_ coder: NSCoder) -> SelectRoomTypeTableViewController? {
         return SelectRoomTypeTableViewController(coder: coder, selectedRoomType: selectedRoomtype, delegate: self)
     }
 }
 
-extension AddRegistrationTableViewController: SelectRoomTypeTableViewControllerDelegate {
+extension AddRegistrationTableViewController: SelectRoomTypeTableViewControllerDelegate, UITextFieldDelegate {
+    
     func didSelect(roomType: RoomType) {
         self.selectedRoomtype = roomType
-        updateRoomType()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

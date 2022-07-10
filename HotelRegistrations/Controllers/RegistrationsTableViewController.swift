@@ -7,8 +7,11 @@
 
 import UIKit
 
-class RegistrationsTableViewController: UITableViewController {
-    private var registrations: [Registration] = []
+final class RegistrationsTableViewController: UITableViewController {
+    
+    private var registrations: [Registration] = RegistrationController.registrations { didSet {
+        RegistrationController.registrations = registrations
+    }}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,6 @@ class RegistrationsTableViewController: UITableViewController {
         return cell
     }
     
-    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch navigationItem.leftBarButtonItem?.title {
         case "Edit":
@@ -51,9 +53,13 @@ class RegistrationsTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
     // MARK: Segues
     
-    @IBSegueAction func addEditRegistrationTableViewController(_ coder: NSCoder) -> AddRegistrationTableViewController? {
+    @IBSegueAction private func addEditRegistrationTableViewController(_ coder: NSCoder) -> AddRegistrationTableViewController? {
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow?.row {
             let registration = registrations[indexPathForSelectedRow]
             return AddRegistrationTableViewController(coder: coder, registration: registration, delegate: self)
@@ -63,6 +69,7 @@ class RegistrationsTableViewController: UITableViewController {
 }
 
 extension RegistrationsTableViewController: AddRegistrationTableViewControllerDelegate {
+    
     func didTapDoneButton(with registration: Registration) {
         if let index = registrations.firstIndex(of: registration) {
             registrations[index] = registration

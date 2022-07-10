@@ -17,6 +17,7 @@
 		8020851C286C837C00EEFEC0 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020851B286C837C00EEFEC0 /* Registration.swift */; };
 		8020851E286C838600EEFEC0 /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020851D286C838600EEFEC0 /* RoomType.swift */; };
 		80717BE82870AC1D00372502 /* SelectRoomTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80717BE72870AC1D00372502 /* SelectRoomTypeTableViewController.swift */; };
+		8082DF6A2875F5D500068936 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8082DF692875F5D500068936 /* RegistrationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8020851B286C837C00EEFEC0 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		8020851D286C838600EEFEC0 /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
 		80717BE72870AC1D00372502 /* SelectRoomTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewController.swift; sourceTree = "<group>"; };
+		8082DF692875F5D500068936 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +66,7 @@
 		80208502286C822100EEFEC0 /* HotelRegistrations */ = {
 			isa = PBXGroup;
 			children = (
-				80208518286C834100EEFEC0 /* ViewControllers */,
+				8082DF6B2875F89400068936 /* Controllers */,
 				80208517286C833600EEFEC0 /* Model */,
 				80208503286C822100EEFEC0 /* AppDelegate.swift */,
 				80208505286C822100EEFEC0 /* SceneDelegate.swift */,
@@ -85,14 +87,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		80208518286C834100EEFEC0 /* ViewControllers */ = {
+		8082DF6B2875F89400068936 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				80717BE72870AC1D00372502 /* SelectRoomTypeTableViewController.swift */,
 				80208519286C836100EEFEC0 /* AddRegistrationTableViewController.swift */,
 				8008D3F0287444FF008D82A8 /* RegistrationsTableViewController.swift */,
+				8082DF692875F5D500068936 /* RegistrationController.swift */,
 			);
-			path = ViewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +175,7 @@
 				8008D3F1287444FF008D82A8 /* RegistrationsTableViewController.swift in Sources */,
 				8020851E286C838600EEFEC0 /* RoomType.swift in Sources */,
 				80208504286C822100EEFEC0 /* AppDelegate.swift in Sources */,
+				8082DF6A2875F5D500068936 /* RegistrationController.swift in Sources */,
 				80208506286C822100EEFEC0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,16 +8,19 @@
 import UIKit
 
 protocol SelectRoomTypeTableViewControllerDelegate: AnyObject {
+    
     func didSelect(roomType: RoomType)
 }
 
-class SelectRoomTypeTableViewController: UITableViewController {
-    var selectedRoomType: RoomType?
+final class SelectRoomTypeTableViewController: UITableViewController {
+    
+    private var selectedRoomType: RoomType?
     weak var delegate: SelectRoomTypeTableViewControllerDelegate?
     
     init?(coder: NSCoder, selectedRoomType: RoomType?, delegate: SelectRoomTypeTableViewControllerDelegate?) {
         self.selectedRoomType = selectedRoomType
         self.delegate = delegate
+        
         super.init(coder: coder)
     }
     
