@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Registration: Equatable {
+struct Registration: Equatable, Codable {
+    
     let id: String
     let firstName: String
     let lastName: String

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct RoomType: Equatable {
+struct RoomType: Equatable, Codable {
+    
     let id: Int
     let name: String
     let shortName: String
